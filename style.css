@@ -1,0 +1,44 @@
+/* 
+Theme Name: Kyo-ani
+Author: Shuma
+Version: 1.0
+*/
+
+a{
+  color:black;
+}
+
+#fh5co-logo{
+  width: 20% !important;
+  min-width: 150px;
+}
+
+#fh5co-logo a{
+  border:none !important;
+}
+
+.logo{
+  width:100% !important;
+}
+
+.fh5co-heading{
+  margin: 0 auto;
+}
+
+.fade{
+  opacity: 0;
+  transition: 2s;
+}
+
+.fade-in{
+  opacity: 1 !important;
+}
+
+#fh5co-contact-section{
+  margin:0 auto;
+}
+
+.bg-img{
+  background-color: rgba(255, 255, 255, 0.3);
+  color:white;
+}
