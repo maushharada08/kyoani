@@ -14,7 +14,7 @@
       <?php if (have_posts()) : ?>
         <?php while (have_posts()) : the_post(); ?>
           <?php $img = get_eyecatch_with_default(); ?>
-          <header class="masthead" style="background-image: url('<?php echo $img[0]; ?>'); height:500px; object-fit:cover;">
+          <header class="masthead" style="background-image: url('<?php echo get_the_post_thumbnail_url( ); ?>'); height:500px; background-size:cover;">
             <div class="overlay"></div>
             <div class="container">
               <div class="row">
@@ -30,15 +30,12 @@
 
 
           <div class="container">
-            <span class="meta">
-              Posted by
-              <a href="#!"><?php the_author(); ?></a>
-              on <?php the_date(); ?>
+            <span class="meta d-flex justify-content-end">
+              Posted by <a href="<?php the_permalink() ;?>"><?php the_author(); ?></a> on <?php the_date(); ?>
             </span>
             <div class="row">
               <div class="col-lg-8 col-md-10 mx-auto">
                 <p><?php the_content() ?></p>
-
               </div>
             </div>
           </div>

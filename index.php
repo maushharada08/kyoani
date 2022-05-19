@@ -19,13 +19,16 @@
 			<aside id="fh5co-hero" class="js-fullheight">
 				<div class="flexslider js-fullheight">
 					<ul class="slides">
-						<?php $img = get_eyecatch_with_default(); ?>
-						<?php $posts = get_posts(array(
-							'category' => '3' // カテゴリIDもしくはスラッグ名
-						));
-						?>
-						<?php if ($posts) : foreach ($posts as $post) : setup_postdata($post); ?>
-								<li style="background-image: url('<?php echo $img[0]; ?>');">
+						<?php query_posts("cat=3&showposts=5"); ?>
+						<?php if (have_posts()) : ?>
+							<?php while (have_posts()) : the_post(); ?>
+								<li style="background-image: url('<?php
+																									if (has_post_thumbnail()) {
+																										echo the_post_thumbnail_url('full');
+																									} else {
+																										echo get_template_directory_uri() . '/images/te.jpg';
+																									}
+																									?>'); background-size:cover;">
 									<div class="overlay-gradient"></div>
 									<div class="container">
 										<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
@@ -36,31 +39,37 @@
 										</div>
 									</div>
 								</li>
-						<?php endforeach;
-						endif; ?>
+							<?php endwhile; ?>
+						<?php endif; ?>
 					</ul>
 				</div>
 			</aside>
 
 			<div class="">
 				<h2 class="text-center py-5">New Release</h2>
-				<?php
-				$posts = get_posts(array(
-					'category' => '4' // カテゴリIDもしくはスラッグ名
-				));
-				?>
-				<?php if ($posts) : foreach ($posts as $post) : setup_postdata($post); ?>
-						<div class="row d-flex fade">
-							<div class="col-3">
-								<img src="<?php echo $img[0]; ?>" class="w-100">
+				<?php $img = get_eyecatch_with_default(); ?>
+				<?php query_posts("cat=4&showposts=5"); ?>
+				<?php if (have_posts()) : ?>
+					<?php while (have_posts()) : the_post(); ?>
+						<a href="<?php the_permalink(); ?>">
+							<div class="row d-flex fade">
+								<div class="col-3">
+									<img src="<?php
+														if (has_post_thumbnail()) {
+															echo get_the_post_thumbnail_url();
+														} else {
+															echo get_template_directory_uri() . '/images/te.jpg';
+														}
+														?>" class="w-100" style="object-fit:cover;">
+								</div>
+								<div class="desc col-9 p-3 pt-5 px-3 align-middle d-inline-block">
+									<h2 class=""><?php the_title() ?></h2>
+									<p class="float-end"><?php the_date() ?> <?php the_time() ?></p>
+								</div>
 							</div>
-							<div class="desc col-9 p-3 pt-5 align-middle d-inline-block">
-								<h2 class=""><?php the_title() ?></h2>
-								<p class="float-end"><?php the_date() ?> <?php the_time() ?></p>
-							</div>
-						</div>
-				<?php endforeach;
-				endif; ?>
+						</a>
+					<?php endwhile; ?>
+				<?php endif; ?>
 			</div>
 
 			<div id="fh5co-portfolio-section">
@@ -153,7 +162,7 @@
 						<div class="col-md-12 col-md-offset-3 text-center fh5co-heading">
 							<i class="sl-icon-paper-plane"></i>
 							<h2 class="heading text-align-center">School</h2>
-							<p class="pb-5">京都アニメーション・アニメーションドゥウプロ養成塾 </p>
+							<p class="pb-5">Kyoto Animation/ Animation Do profecional place</p>
 						</div>
 					</div>
 					<div class="row">
@@ -254,33 +263,41 @@
 
 			<div id="fh5co-blog-section" class="grey-bg">
 				<div class="container">
-					<div class="row fade">
-						<div class="col-md-6 text-center fh5co-heading">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
 							<i class="sl-icon-note"></i>
 							<h2>Recent Blog</h2>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
 						</div>
 					</div>
+					<div class="row">
 
-					<?php
-					$posts = get_posts(array(
-						'category' => '5' // カテゴリIDもしくはスラッグ名
-					));
-					?>
-					<?php if ($posts) : foreach ($posts as $post) : setup_postdata($post); ?>
-							<div class="row fade">
+						<?php query_posts("cat=5&showposts=5"); ?>
+						<?php if (have_posts()) : ?>
+							<?php while (have_posts()) : the_post(); ?>
 								<div class="feature-full-1col col-md-6">
-									<div class="image" style="background-image: url('<?php echo $img[0]; ?>');">
+									<div class="image" style="background-image: url('<?php 
+									if (has_post_thumbnail()) {
+										echo get_the_post_thumbnail_url();
+									} else {
+										echo get_template_directory_uri() . '/images/te.jpg';
+									}
+									?>'); background-size:cover;">
 									</div>
 									<div class="desc">
-										<h3 class="fw-bold"><?php the_title() ?></h3>
-										<p><?php the_excerpt() ?></p>
-										<p><a href="<?php the_permalink() ?>" class="btn btn-primary btn-luxe-primary">Read More</a></p>
+										<h3><?php the_title();?></h3>
+										<p><?php the_excerpt(  );?></p>
+										<p><a href="<?php the_permalink(  ); ?>" class="btn btn-primary btn-luxe-primary">Read More</a></p>
 									</div>
 								</div>
-							</div>
-						<?php endforeach; ?>
-					<?php endif; ?>
+								<?php endwhile ;?>
+							<?php endif ; ?>
+
+						
+
+						
+
+					</div>
 				</div>
 			</div>
 
@@ -311,14 +328,14 @@
 				</div>
 			</div>
 
-			<div class="fh5co-parallax" style="background-image: url(images/hero2.jpg);" data-stellar-background-ratio="0.5">
+			<div class="fh5co-parallax" style="background-image: url('<?php get_template_directory_uri(); ?>/images/hero2.jpg');" data-stellar-background-ratio="0.5">
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row fade">
 						<div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-center fh5co-table">
 							<div class="fh5co-intro fh5co-table-cell animate-box">
 								<h1 class="text-center">We Create Masterpiece.</h1>
-								<p>Made with love by the fine folks at <a href="http://freehtml5.co">FreeHTML5.co</a></p>
+								<p>Made with love by the fine folks at <a href="//freehtml5.co">FreeHTML5.co</a></p>
 								<p><a href="/contact" class="btn btn-primary btn-lg">Get started</a></p>
 							</div>
 						</div>

@@ -19,7 +19,7 @@
 			<div class="flexslider js-fullheight">
 				<ul class="slides">
 					<?php $img = get_eyecatch_with_default() ;?>
-					<li style="background-image: url('<?php echo $img[0] ;?>');">
+					<li style="background-image: url('<?php echo get_the_post_thumbnail_url( ) ;?>'); background-size:cover;">
 						<div class="overlay-gradient"></div>
 						<div class="container">
 							<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
